@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	options
+	<div id="option"></div>
+	<hr>
+	cookies
+	<div id="cookieInfos"></div>
+
+	<script>
+		function getAllCookies() {
+			var result = '';
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				result += cookies[i] + '<br>';
+			}
+			return result;
+		}
+
+		var setCookie = function(name, value, expiredays) {
+			var todayDate = new Date();
+			if (expiredays == null) {
+				expiredays = 30;
+			}
+			todayDate.setDate(todayDate.getDate() + expiredays);
+			document.cookie = name + "=" + value + "; path=/; expires=" + todayDate.toGMTString() + ";";
+		}
+
+		var reloadCookieInfos = function() {
+			document.getElementById('cookieInfos').innerHTML = getAllCookies();
+		};
+
+		var setContentCookie = function() {
+			var cookies = '';
+			var elems = document.querySelectorAll('input[type=checkbox]');
+			for (var i = 0; i < elems.length; i++) {
+				var elem = elems[i];
+				if (elem.checked === true) {
+					cookies += elem.value + ',';
+				}
+			}
+			setCookie('contentsCookie', cookies.substring(0, cookies.length - 1), 1);
+			reloadCookieInfos();
+		};
+	</script>
+	<script>
+		// draw
+		var ulDom = document.createElement('ul');
+		for (var i = 1; i < 11; i++) {
+			var checkbox = document.createElement('input');
+			checkbox.setAttribute('type', 'checkbox');
+			checkbox.setAttribute('value', i + 'checkbox');
+			checkbox.addEventListener('click', setContentCookie);
+
+			var liDom = document.createElement('li');
+			liDom.appendChild(checkbox);
+			liDom.appendChild(document.createTextNode(i + 'th Content'));
+			ulDom.appendChild(liDom);
+		}
+		document.getElementById('option').appendChild(ulDom);
+
+		// init
+		reloadCookieInfos();
+	</script>
+</body>
+</html>
