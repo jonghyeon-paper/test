@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="utf-8">
+		<title>Hello World!</title>
+		
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="/static/layoutTemplate.js?v=1"></script>
+	</head>
+	<body>
+		<div style="width:100%;">
+			<div style="float:left; width:17%; height:800px; background-color:#76d276;">
+				<p>Menu</p>
+				<p><a href="/">Index</a></p>
+				<p><a href="/page1.html">Page1</a></p>
+			</div>
+			<div style="float:left; width:83%; height:800px; background-color:#7686d2;">
+				<p>Content</p>
+				<div style="margin:10px; width:95%; height:700px; background-color:#ffffff;" id="baseArea"></div>
+			</div> 
+		</div>
+		
+		<div id="vizTemplate" class="column sortable hide">
+			<div class="portlet portlet-sortable">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject  "> </span> <span class="caption-helper"></span>
+					</div>
+					<div class="tools">
+						<span class="nui-grid-common"> </span>
+					</div>
+				</div>
+				<div id="portlet-body-01" class="portlet-body tableau-type-01"></div>
+			</div>
+			<div class="portlet portlet-sortable-empty"></div>
+		</div>
+		
+		<script>
+		$(function(){
+			var contentData = [{
+				id: 'naver',
+				title: '네이버',
+				url: 'https://naver.com'
+			},
+			{
+				id: 'daum',
+				title: '다음',
+				url: 'http://daum.net'
+			},
+			{
+				id: 'google',
+				title: '구글',
+				url: 'https://google.com'
+			},
+			{
+				id: 'ncsoft',
+				title: '엔씨',
+				url: 'http://ncsoft.com/'
+			}];
+			var customSave = function(data) {
+				setCookie('page1', JSON.stringify(data), 1);
+			};
+			var customAfterSave = function(data) {
+				//todo...
+			};
+			
+			var temp = new LayoutTemplate();
+			temp.setTargetId('baseArea');
+			temp.setContentArray(contentData);
+			temp.setContentTemplateId('vizTemplate');
+			temp.setSave(customSave);
+			temp.setAfterSave(customAfterSave);
+			temp.draw(getCookie('page1'));
+		});
+		</script>
+	</body>
+</html>
