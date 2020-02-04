@@ -1,0 +1,34 @@
+<html>
+	<head>
+	    <title></title>
+	</head>
+	
+	<body>
+       <script type="text/javascript">
+           function GoSMSRealNameCheck() {
+                window.open('', 'popupChk', 'width=450, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no');
+                    
+                document.vnoform.param_r1.value = "";
+                document.vnoform.param_r3.value = "MOBILE";
+
+                document.vnoform.target = 'popupChk';
+                document.vnoform.action = 'https://www.hillstate.co.kr//hillstate_chungyak1_process.aspx';
+                document.vnoform.submit();      
+            }
+        </script>
+	
+        <div>
+            <button type="button" onClick="GoSMSRealNameCheck();">submit</button>
+        </div>
+        <form name="vnoform" method="post">
+            <input type="hidden" name="enc_data" value=""><!-- ipin용 -->
+            <input type="hidden" name="EncodeData" value=""><!-- mobile용 -->
+            <input type="hidden" name="m" value="">
+
+            <input type="hidden" name="param_r1" value="">
+            <input type="hidden" name="param_r2" value="">
+            <input type="hidden" name="param_r3" value="">
+        </form>
+	</body>
+
+</html>
